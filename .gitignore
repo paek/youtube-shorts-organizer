@@ -1,0 +1,15 @@
+﻿# Local browser test profile & Chrome generated extension caches
+.chrome-profile/
+**/.chrome-profile/
+extension/_metadata/
+**/_metadata/
+
+# Release packages & build outputs
+dist/
+*.zip
+
+# IDE & OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

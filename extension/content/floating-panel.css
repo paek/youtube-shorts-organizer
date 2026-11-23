@@ -1,0 +1,18 @@
+/*
+ * Minimal host-level positioning rules for the Shadow DOM container.
+ * All internal panel styles live inside the Shadow DOM in floating-panel.js
+ * so YouTube's global stylesheets can never break layout or button styles.
+ */
+#ytw-panel-host {
+  position: fixed !important;
+  top: 76px;
+  right: 16px;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}

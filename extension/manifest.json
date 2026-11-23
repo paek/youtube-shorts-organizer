@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Shorts Organizer & Learning Player (Dev MVP)",
+  "version": "0.1.0",
+  "description": "Phase 1 draft: Shorts N-times repeat, A-B loop, playback speed, favorite/memo, sponsored-skip, video ad blocking.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "YT Organizer (클릭 시 독립 창 열기)",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "permissions": ["storage", "tabs", "declarativeNetRequest"],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://translate.googleapis.com/*",
+    "https://lrclib.net/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ad_block_rules",
+        "enabled": true,
+        "path": "rules/ad-block-rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "run_at": "document_idle",
+      "js": [
+        "content/ad-skip.js",
+        "content/youtube-adapter.js",
+        "content/storage.js",
+        "content/player-controller.js",
+        "content/floating-panel.js",
+        "content/content-script.js"
+      ],
+      "css": ["content/floating-panel.css"]
+    }
+  ]
+}

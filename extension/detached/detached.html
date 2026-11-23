@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YT Organizer</title>
+  <link rel="stylesheet" href="detached.css" />
+</head>
+
+<body>
+  <div class="ytw-app">
+    <header class="ytw-header">
+      <div class="ytw-title-wrap">
+        <span class="ytw-dot" id="conn-dot"></span>
+        <span>YT Organizer</span>
+      </div>
+      <div class="ytw-header-right">
+        <span class="ytw-badge" id="repeat-progress">1/1</span>
+        <button type="button" class="ytw-mini-btn" id="next-short-btn" title="다음 쇼츠로 이동">다음 ⏭</button>
+      </div>
+    </header>
+
+    <div class="ytw-now-playing" id="now-playing">
+      <div class="ytw-now-title" id="now-title">YouTube Shorts 탭에 연결 중...</div>
+      <div class="ytw-now-sub" id="now-sub"></div>
+    </div>
+
+    <nav class="ytw-tabs" id="tabs">
+      <button type="button" class="ytw-tab-btn ytw-tab-active" data-tab="player">제어</button>
+      <button type="button" class="ytw-tab-btn" data-tab="favorites" id="tab-favorites">★ 즐겨찾기 (0)</button>
+      <button type="button" class="ytw-tab-btn" data-tab="music">🎵 음악/자막</button>
+    </nav>
+
+    <div class="ytw-live-caption" id="live-caption">
+      <div class="ytw-live-caption-orig" id="live-caption-orig"></div>
+      <div class="ytw-live-caption-ko" id="live-caption-ko"></div>
+    </div>
+
+    <main class="ytw-body">
+      <!-- TAB 1: Player / Memo -->
+      <section class="ytw-tab-pane ytw-tab-active" data-pane="player">
+        <div class="ytw-section">
+          <div class="ytw-section-title"><span>Repeat</span></div>
+          <div class="ytw-row" id="repeat-row"></div>
+        </div>
+
+        <div class="ytw-section">
+          <div class="ytw-section-title"><span>Speed</span></div>
+          <div class="ytw-row" id="speed-row"></div>
+        </div>
+
+        <div class="ytw-section">
+          <div class="ytw-section-title">
+            <span>A-B Loop</span>
+            <span class="ytw-ab-status" id="ab-status">A: -- / B: --</span>
+          </div>
+          <div class="ytw-row">
+            <button type="button" id="set-a">Set A</button>
+            <button type="button" id="set-b">Set B</button>
+            <button type="button" id="ab-clear">Clear</button>
+          </div>
+        </div>
+
+        <div class="ytw-divider"></div>
+
+        <div class="ytw-section">
+          <button type="button" class="ytw-fav-toggle" id="fav-btn">☆ 즐겨찾기 추가</button>
+        </div>
+
+        <div class="ytw-section">
+          <div class="ytw-section-title">
+            <span>Memo</span>
+            <span style="font-size: 10px; opacity: 0.7;">Ctrl+Enter 저장</span>
+          </div>
+          <textarea id="memo" placeholder="이 쇼츠에 대한 메모를 입력하세요..."></textarea>
+          <div class="ytw-memo-footer">
+            <button type="button" id="memo-save">메모 저장</button>
+            <span class="ytw-memo-status" id="memo-status"></span>
+          </div>
+        </div>
+
+        <div class="ytw-divider"></div>
+
+        <div class="ytw-section">
+          <label class="ytw-check-label">
+            <input type="checkbox" id="auto-skip-sponsored" />
+            <span>광고/스폰서 자동 넘김</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- TAB 2: Favorites -->
+      <section class="ytw-tab-pane" data-pane="favorites">
+        <div class="ytw-section">
+          <div class="ytw-check-row">
+            <label class="ytw-check-label">
+              <input type="checkbox" id="favorites-only" />
+              <span>즐겨찾기만 연속재생</span>
+            </label>
+            <button type="button" class="ytw-mini-btn" id="favorites-order" title="즐겨찾기 재생 순서 전환">랜덤</button>
+          </div>
+        </div>
+
+        <div class="ytw-section">
+          <div class="ytw-section-title">
+            <span id="fav-list-label">★ 즐겨찾기 목록 (0)</span>
+          </div>
+          <div class="ytw-fav-list" id="fav-list"></div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Music & Captions/Lyrics -->
+      <section class="ytw-tab-pane" data-pane="music">
+        <div class="ytw-section">
+          <div class="ytw-section-title">
+            <span>🎵 곡 제목 / 사운드</span>
+            <button type="button" class="ytw-mini-btn" id="music-refresh" title="음악 정보 다시 읽기">↻</button>
+          </div>
+          <input type="text" class="ytw-music-input" id="music-title" placeholder="음악 정보 없음 (직접 입력 가능)" />
+          <div class="ytw-music-translation" id="music-translation"></div>
+          <div class="ytw-row">
+            <button type="button" class="ytw-mini-btn" id="music-translate">제목 번역</button>
+            <button type="button" class="ytw-mini-btn" id="music-yt">▶ YT</button>
+            <button type="button" class="ytw-mini-btn" id="music-ytm">🎵 Music</button>
+            <button type="button" class="ytw-mini-btn ytw-btn-hidden" id="music-source">🔗 사운드</button>
+            <button type="button" class="ytw-mini-btn" id="music-to-memo" title="음악 제목을 메모에 추가">📝</button>
+          </div>
+        </div>
+
+        <div class="ytw-divider"></div>
+
+        <div class="ytw-section">
+          <div class="ytw-section-title">
+            <span>자막 / 가사 & 번역</span>
+          </div>
+          <div class="ytw-row">
+            <button type="button" class="ytw-mini-btn" id="captions-fetch">CC 자막 추출</button>
+            <button type="button" class="ytw-mini-btn" id="lyrics-fetch">가사 찾기</button>
+            <button type="button" class="ytw-mini-btn" id="lyrics-translate">전체 번역</button>
+            <button type="button" class="ytw-mini-btn" id="lyrics-web">🔍 웹검색</button>
+          </div>
+          <div class="ytw-lyrics-status" id="lyrics-status"></div>
+          <textarea class="ytw-lyrics-input" id="lyrics-input"
+            placeholder="CC 자막 추출이나 가사 찾기를 누르거나, 번역할 영어 대사/가사를 직접 붙여넣으세요..."></textarea>
+          <div class="ytw-lyrics-translated" id="lyrics-translated"></div>
+          <div class="ytw-row ytw-btn-hidden" id="lyrics-actions">
+            <button type="button" class="ytw-mini-btn" id="lyrics-copy">번역 복사</button>
+            <button type="button" class="ytw-mini-btn" id="lyrics-to-memo">메모에 저장</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="detached.js"></script>
+</body>
+
+</html>
