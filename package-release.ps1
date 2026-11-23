@@ -34,6 +34,15 @@ YouTube Shorts Organizer & Learning Player v$Version
 4. YouTube Shorts 페이지를 열면 우측 상단에 YT Organizer가 표시됩니다.
    (Open any YouTube Shorts page to use YT Organizer.)
 
+[주요 사용법 / Quick Tips]
+- 헤더 드래그: 위치 이동 (자동 저장) / 더블클릭: 기본 위치 복원
+- ↗ 버튼 또는 툴바 아이콘 클릭: 브라우저 밖 독립 창으로 분리
+- 제어 탭: 반복(종료 2초 후 자동 넘김), 배속, A-B 루프, 메모, 광고/스폰서 자동 넘김
+- ★ 즐겨찾기 탭: 즐겨찾기만 연속재생 (랜덤/순서)
+- 🎵 음악/자막 탭: 곡 제목 번역·YouTube 원곡 듣기, CC 자막·가사 번역
+  (실시간 자막 바는 기본 OFF이며 '실시간 자막 바 표시' 체크 시 활성화됩니다)
+
+iOS Safari / Android guide: https://github.com/paek/youtube-shorts-organizer
 License: GNU GPL v3.0 (see LICENSE)
 "@
 Set-Content -LiteralPath (Join-Path $StageDir "INSTALL.txt") -Value $installText -Encoding UTF8
