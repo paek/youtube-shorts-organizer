@@ -1,4 +1,4 @@
-﻿# YouTube Shorts Organizer & Learning Player
+# YouTube Shorts Organizer & Learning Player
 
 [English](./README.md) | [한국어 (Korean)](./README.ko.md)
 
@@ -16,6 +16,7 @@ A local-first Chrome Extension (Manifest V3) that turns YouTube Shorts into a st
   * Searches lyrics via LRCLIB and translates full lyrics inline.
 * **Ad & Sponsor Auto-Skip Toggle**: Single checkbox (`광고/스폰서 자동 넘김`) to toggle automatic skipping for Shorts sponsored/in-feed ads and regular YouTube video ads.
 * **Draggable Panel & Detached Window (`↗`)**: Drag the Shadow-DOM overlay anywhere inside the browser (position saved), or pop it out into a **separate window** for multi-monitor / outside-browser control.
+* **Safari (iOS / macOS) & Mobile Browser Support**: Works on `m.youtube.com` via Safari Web Extension (`extension/`) or the standalone Userscript ([`userscript/youtube-shorts-organizer.user.js`](./userscript/youtube-shorts-organizer.user.js)). See **[SAFARI_IOS_SETUP.md](./SAFARI_IOS_SETUP.md)**.
 
 ## Installation (Chrome Developer Mode)
 

@@ -20,7 +20,7 @@
     }
 
     .ytw-panel {
-      width: 280px;
+      width: min(280px, calc(100vw - 20px));
       max-height: calc(100vh - 96px);
       display: flex;
       flex-direction: column;
@@ -868,6 +868,10 @@
       );
 
       const detachBtn = q("detach");
+      const isCompactMobile = window.innerWidth <= 640 || location.hostname === "m.youtube.com";
+      if (isCompactMobile) {
+        detachBtn.classList.add("ytw-btn-hidden");
+      }
       detachBtn.addEventListener("pointerdown", (e) => {
         e.stopPropagation();
       });

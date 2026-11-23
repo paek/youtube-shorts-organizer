@@ -5,6 +5,13 @@ Versioning follows Semantic Versioning (`MAJOR.MINOR.PATCH`).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-23
+
+### Added
+- Mobile YouTube (`https://m.youtube.com/*`) support across `manifest.json`, `youtube-adapter.js`, `service-worker.js`, and responsive `floating-panel.js` (ready for macOS/iOS Safari Web Extension conversion and Android Kiwi/Lemur browsers).
+- Standalone cross-browser Userscript (`userscript/youtube-shorts-organizer.user.js`) for iOS/iPadOS Safari (Userscripts app), macOS Safari, and Android Firefox/Kiwi without requiring Xcode.
+- Platform setup guide (`SAFARI_IOS_SETUP.md`).
+
 ## [0.2.0] - 2026-11-23
 
 ### Added

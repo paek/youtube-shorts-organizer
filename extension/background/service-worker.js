@@ -499,7 +499,9 @@ function notifyTabDetachedStatus(tabId, detached) {
 
 async function findActiveShortsTabId() {
   try {
-    const tabs = await chrome.tabs.query({ url: "https://www.youtube.com/shorts/*" });
+    const tabs = await chrome.tabs.query({
+      url: ["https://www.youtube.com/shorts/*", "https://m.youtube.com/shorts/*"],
+    });
     if (!tabs || tabs.length === 0) return null;
     const active = tabs.find((t) => t.active) || tabs[0];
     return typeof active.id === "number" ? active.id : null;
@@ -509,6 +511,9 @@ async function findActiveShortsTabId() {
 }
 
 async function openDetachedWindow(tabId, sourceWindowId) {
+  if (!chrome.windows || typeof chrome.windows.create !== "function") {
+    return { ok: false, error: "detached_window_not_supported_on_this_platform" };
+  }
   if (typeof tabId === "number") {
     detachedTargetTabId = tabId;
   } else if (detachedTargetTabId === null) {

@@ -16,6 +16,7 @@ YouTube Shorts를 체계적으로 반복 시청·학습·관리할 수 있는 Lo
   * 무료 가사 DB(LRCLIB) 가사 검색 및 전체 가사 번역.
 * **광고/스폰서 자동 넘김 체크박스**: 체크박스 하나로 쇼츠 스폰서·인피드 광고 및 일반 YouTube 영상 광고 자동 스킵 ON/OFF.
 * **드래그 이동 & 독립 창 분리 (`↗`)**: 브라우저 내 원하는 위치로 드래그 이동(위치 자동 저장)하거나, **별도 팝업 창으로 분리**해 브라우저 밖·듀얼 모니터에서 실시간 제어.
+* **Safari (iOS / macOS) 및 모바일 브라우저 지원**: `m.youtube.com` 모바일 지원 및 단독 Userscript([`userscript/youtube-shorts-organizer.user.js`](./userscript/youtube-shorts-organizer.user.js)) 제공. 설치 방법은 **[SAFARI_IOS_SETUP.md](./SAFARI_IOS_SETUP.md)** 참고.
 
 ## 설치 방법 (Chrome 개발자 모드)
 

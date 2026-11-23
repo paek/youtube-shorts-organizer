@@ -17,14 +17,19 @@
     return match ? match[1] : null;
   }
 
-  // Multiple selector fallbacks because YouTube's Shorts markup has changed
-  // shape across versions. First match wins.
+  // Multiple selector fallbacks covering both Desktop (www.youtube.com) and
+  // Mobile (m.youtube.com / iOS Safari / Android browsers). First match wins.
   const ACTIVE_VIDEO_SELECTORS = [
     "ytd-reel-video-renderer[is-active] video.video-stream",
+    "ytm-reel-video-renderer[is-active] video",
+    "reel-video-in-sequence-new-view-model video",
     "ytd-shorts [is-active] video.video-stream",
     "#shorts-player video.video-stream",
+    "#shorts-player video",
     "ytd-reel-video-renderer[is-active] video",
     "video.video-stream.html5-main-video",
+    "video.html5-main-video",
+    "video",
   ];
 
   function findActiveVideoElement() {
@@ -108,7 +113,8 @@
 
   function goToShortById(videoId) {
     if (!videoId) return false;
-    const targetUrl = `https://www.youtube.com/shorts/${encodeURIComponent(videoId)}`;
+    const origin = location.origin || "https://www.youtube.com";
+    const targetUrl = `${origin}/shorts/${encodeURIComponent(videoId)}`;
     console.log("[YTW] goToShortById: navigating to", targetUrl);
     window.location.assign(targetUrl);
     return true;
@@ -301,8 +307,9 @@
       callback();
     };
     document.addEventListener("yt-navigate-finish", safeCallback);
+    window.addEventListener("popstate", safeCallback);
     // Safety-net poll in case yt-navigate-finish is missed on some
-    // versions/timings — cheap, low-frequency, and idempotent on the caller side.
+    // versions/timings (including m.youtube.com mobile SPA).
     const pollId = setInterval(safeCallback, 800);
   }
 
@@ -349,14 +356,21 @@
     });
 
     // Last resort: the Shorts feed is a snap-scrolling container — scrolling
-    // it by one viewport height approximates a manual swipe.
-    const container = document.querySelector("#shorts-container, ytd-shorts #contents");
-    if (container) {
+    // it by one viewport height approximates a manual swipe (works on m.youtube.com too).
+    const container = document.querySelector(
+      "#shorts-container, ytd-shorts #contents, .reel-video-in-sequence, ytm-shorts, #reel-video-renderer-container"
+    );
+    if (container && container.scrollHeight > container.clientHeight + 20) {
       console.log("[YTW] goToNextShort: scrolling container as last resort", container);
       container.scrollBy({ top: window.innerHeight, behavior: "smooth" });
-    } else {
-      console.log("[YTW] goToNextShort: no scroll container found either — giving up");
+      return true;
     }
+    if (document.scrollingElement && document.scrollingElement.scrollHeight > window.innerHeight + 20) {
+      console.log("[YTW] goToNextShort: scrolling window as mobile fallback");
+      window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+      return true;
+    }
+    console.log("[YTW] goToNextShort: no scroll container found either — giving up");
     return false;
   }
 
@@ -380,7 +394,9 @@
   function getActiveShortContainer() {
     return (
       document.querySelector("ytd-reel-video-renderer[is-active]") ||
-      document.querySelector("ytd-shorts [is-active]")
+      document.querySelector("ytm-reel-video-renderer[is-active]") ||
+      document.querySelector("ytd-shorts [is-active]") ||
+      document.querySelector("reel-video-in-sequence-new-view-model")
     );
   }
 
