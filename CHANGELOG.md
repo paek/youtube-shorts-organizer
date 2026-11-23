@@ -5,6 +5,11 @@ Versioning follows Semantic Versioning (`MAJOR.MINOR.PATCH`).
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-23
+
+### Changed
+- Disabled the live synced caption/translation bar by default; added an explicit `실시간 자막 바 표시` toggle checkbox (default OFF) in both the in-page panel and detached window.
+
 ## [0.3.0] - 2026-11-23
 
 ### Added

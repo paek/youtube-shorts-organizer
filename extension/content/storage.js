@@ -17,6 +17,7 @@
     autoSkipSponsored: true, // CLAUDE.md 30장 — skip detected sponsored Shorts by default
     favoritesOnly: false, // Play only saved favorite Shorts continuously
     favoritesShuffle: true, // Randomize order when playing favorites
+    showLiveCaption: false, // Hide live synced caption bar by default
     panelCollapsed: false,
     panelPosition: null, // { left: number, top: number } | null (default top-right)
   };

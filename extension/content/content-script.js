@@ -290,6 +290,14 @@
         return { ok: true, snapshot: await buildStateSnapshot() };
       }
 
+      case "SET_SHOW_LIVE_CAPTION": {
+        const settings = await Storage.saveSettings({
+          showLiveCaption: Boolean(payload && payload.value),
+        });
+        await panel.syncExternalState(settings);
+        return { ok: true, snapshot: await buildStateSnapshot() };
+      }
+
       case "SET_AUTO_SKIP": {
         const enabled = Boolean(payload && payload.value);
         const settings = await Storage.saveSettings({
